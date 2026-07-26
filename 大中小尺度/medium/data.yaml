@@ -1,0 +1,16 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+# 严格对应左侧Classes从上到下：0、1、2、3
+names: ['light_disease', 'healthy', 'severe_disease', 'moderate_disease']
+# RGB+NDVI四通道遥感影像输入
+ch: 4
+
+roboflow:
+  workspace: 1647757673-qq-com
+  project: tobacco-aztfp-rhtgk
+  version: dataset
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/1647757673-qq-com/tobacco-aztfp-rhtgk/dataset/dataset
