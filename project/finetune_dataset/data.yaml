@@ -1,0 +1,10 @@
+ch: 3
+names:
+- light_disease
+- healthy
+- severe_disease
+- moderate_disease
+nc: 4
+path: E:\tobacco\project\finetune_dataset
+train: train/images
+val: valid/images
