@@ -1,0 +1,11 @@
+# dataset root 根目录，直接定位到 t 文件夹
+path: E:\Yolov8-Remose-Image-Dataset-Process-Tool-Set-main\t
+
+# 相对path写路径：train文件夹下的images；valid文件夹下的images
+train: train/images
+val: valid/images
+test: # 中尺度数据集这里留空，不用测试集
+
+# 类别设置
+nc: 3
+names: ["grow tobacco", "disease tobacco", "others"]
