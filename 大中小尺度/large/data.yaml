@@ -1,0 +1,15 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['tobacco']
+ch: 4  # 新增！4通道RGB+NDVI；只用RGB三通道就删掉这行
+
+# roboflow字段不影响训练，可保留也可直接删除，不报错
+roboflow:
+  workspace: liu-jinhong
+  project: tobacco-fqzv3
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/liu-jinhong/tobacco-fqzv3/dataset/2
