@@ -1,0 +1,8 @@
+ch: 3
+names:
+- healthy
+- disease
+nc: 2
+path: E:\tobacco\finetune\finetune_dataset
+train: train/images
+val: valid/images
