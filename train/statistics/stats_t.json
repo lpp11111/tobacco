@@ -1,0 +1,83 @@
+{
+  "dataset": "t",
+  "nc": 3,
+  "names": [
+    "grow tobacco",
+    "disease tobacco",
+    "others"
+  ],
+  "splits": {
+    "train": {
+      "files": 89,
+      "labels": 1561,
+      "class_counts": {
+        "grow tobacco": {
+          "count": 1317,
+          "percentage": 84.4
+        },
+        "disease tobacco": {
+          "count": 189,
+          "percentage": 12.1
+        },
+        "others": {
+          "count": 55,
+          "percentage": 3.5
+        }
+      }
+    },
+    "valid": {
+      "files": 22,
+      "labels": 434,
+      "class_counts": {
+        "grow tobacco": {
+          "count": 380,
+          "percentage": 87.6
+        },
+        "disease tobacco": {
+          "count": 49,
+          "percentage": 11.3
+        },
+        "others": {
+          "count": 5,
+          "percentage": 1.2
+        }
+      }
+    },
+    "test": {
+      "files": 0,
+      "labels": 0,
+      "class_counts": {
+        "grow tobacco": {
+          "count": 0,
+          "percentage": 0
+        },
+        "disease tobacco": {
+          "count": 0,
+          "percentage": 0
+        },
+        "others": {
+          "count": 0,
+          "percentage": 0
+        }
+      }
+    }
+  },
+  "total": {
+    "files": 111,
+    "labels": 1995,
+    "class_counts": {
+      "grow tobacco": {
+        "count": 1697,
+        "percentage": 85.1
+      },
+      "disease tobacco": {
+        "count": 238,
+        "percentage": 11.9
+      },
+      "others": {
+        "count": 60,
+        "percentage": 3.0
+      }
+    }
+  }
+}
