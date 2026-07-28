@@ -1,0 +1,15 @@
+path: E:\tobacco\train\data\medium
+
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 2
+names: ['healthy', 'disease']
+
+roboflow:
+  workspace: 1647757673-qq-com
+  project: tobacco-aztfp-rhtgk
+  version: dataset
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/1647757673-qq-com/tobacco-aztfp-rhtgk/dataset/dataset

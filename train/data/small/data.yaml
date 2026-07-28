@@ -1,0 +1,15 @@
+path: E:\tobacco\train\data\small
+
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 4
+names: ['light_disease', 'healthy', 'severe_disease', 'moderate_disease']
+
+roboflow:
+  workspace: tobacco-plants
+  project: tobacco-shwu2
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/tobacco-plants/tobacco-shwu2/dataset/2
