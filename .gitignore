@@ -1,16 +1,21 @@
-# 图片、影像图
-*.png
-*.jpg
-*.jpeg
+# 遥感大图
 *.tif
+# 训练数据集图片（数量大，不上传）
+train/data/**/*.png
+train/data/**/*.jpg
+train/data/**/*.jpeg
+# 标注数据图片（不上传）
+egforing/annotations/**/*.png
+egforing/annotations/**/*.jpg
+egforing/annotations/**/*.jpeg
 # 训练权重
 *.pt
 *.pth
-# 训练输出文件夹
+# YOLO runs 目录
 runs/
-output/
-# 数据集大图、标注大图
-train/data/*_pos_*.png
 # 缓存文件
 __pycache__/
 *.log
+*.cache
+# models 目录不上传
+models/
