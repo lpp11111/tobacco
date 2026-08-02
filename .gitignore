@@ -1,0 +1,16 @@
+# 图片、影像图
+*.png
+*.jpg
+*.jpeg
+*.tif
+# 训练权重
+*.pt
+*.pth
+# 训练输出文件夹
+runs/
+output/
+# 数据集大图、标注大图
+train/data/*_pos_*.png
+# 缓存文件
+__pycache__/
+*.log

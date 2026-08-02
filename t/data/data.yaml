@@ -1,0 +1,8 @@
+path: E:\tobacco\t\data
+
+train: train/images
+val: val/images
+test: test/images
+
+nc: 3
+names: ['grow_tobacco', 'disease_tobacco', 'others']

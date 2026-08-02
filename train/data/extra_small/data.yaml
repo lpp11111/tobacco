@@ -1,0 +1,15 @@
+path: E:\tobacco\train\data\extra_small
+
+train: train/images
+val: valid/images
+test: test/images
+
+nc: 10
+names: ['batang', 'bayam', 'daun bintik kuning', 'daun kecil', 'daun matang', 'daun sehat', 'daun_berlubang', 'daunberlubang', 'daunhama', 'penyakit k']
+
+roboflow:
+  workspace: rahma-5ipxt
+  project: tobacco-test-iycsy
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/rahma-5ipxt/tobacco-test-iycsy/dataset/1

@@ -1,0 +1,2 @@
+﻿模型,类型,Box_Precision,Box_Recall,Box_mAP50,Box_mAP50-95,Mask_Precision,Mask_Recall,Mask_mAP50,Mask_mAP50-95
+scratch,det,0.6089306003997432,0.6120250583619334,0.6489349923659372,0.44550841181701395,0,0,0,0
