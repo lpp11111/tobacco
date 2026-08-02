@@ -1,9 +1,0 @@
-path: E:\tobacco\train\data\extra_small
-
-train: train/images
-val: valid/images
-test: test/images
-
-nc: 4
-names: ['healthy', 'bacterial_disease', 'fungal_disease', 'viral_disease']
-ch: 3
