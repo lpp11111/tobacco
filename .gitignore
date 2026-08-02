@@ -4,10 +4,6 @@
 train/data/**/*.png
 train/data/**/*.jpg
 train/data/**/*.jpeg
-# 标注数据图片（不上传）
-egforing/annotations/**/*.png
-egforing/annotations/**/*.jpg
-egforing/annotations/**/*.jpeg
 # 训练权重
 *.pt
 *.pth
