@@ -10,7 +10,7 @@ class TobaccoPredictor:
     """烟草检测预测器 - 支持任意格式、任意大小图片的检测
     
     使用方法:
-        # 初始化（可选模型: large, medium, small, extra_small, finetuned, t_scratch, t_transfer）
+        # 初始化（可选模型: large, medium, small, extra_small, finetuned, t_scratch, t_transfer, t_nano）
         predictor = TobaccoPredictor(model_type='medium')
         
         # 单张图片预测（自动处理大尺寸图片切片）
@@ -37,6 +37,7 @@ class TobaccoPredictor:
         'finetuned': 'models/best_medium_finetuned.pt',
         't_scratch': 'models/best_t_scratch.pt',
         't_transfer': 'models/best_t_transfer.pt',
+        't_nano': 'models/best_t_nano.pt',
     }
 
     CLASS_NAMES = {
@@ -48,6 +49,7 @@ class TobaccoPredictor:
         'finetuned': ['healthy', 'disease'],
         't_scratch': ['grow_tobacco', 'disease_tobacco', 'others'],
         't_transfer': ['grow_tobacco', 'disease_tobacco', 'others'],
+        't_nano': ['grow_tobacco', 'disease_tobacco', 'others'],
     }
     
     SUPPORTED_FORMATS = {'.png', '.jpg', '.jpeg', '.tif', '.tiff', '.bmp', '.webp'}
@@ -59,7 +61,7 @@ class TobaccoPredictor:
         
         Args:
             model_path: 自定义模型路径（优先于model_type）
-            model_type: 预设模型类型 ('large', 'medium', 'small', 'extra_small', 'finetuned', 't_scratch', 't_transfer')
+            model_type: 预设模型类型 ('large', 'medium', 'small', 'extra_small', 'finetuned', 't_scratch', 't_transfer', 't_nano')
             conf_threshold: 置信度阈值，默认0.25
             imgsz: 模型输入图像大小，默认640
             max_size_threshold: 自动切片阈值（像素），图片边长超过此值则切片，默认1024
@@ -467,19 +469,81 @@ def predict(img_path: str, model_type: str = 'medium',
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='烟草检测预测脚本')
-    parser.add_argument('img', help='图片路径')
+    parser.add_argument('img', nargs='?', help='图片路径')
     parser.add_argument('--model_type', default='medium',
-                       choices=['large', 'medium', 'small', 'extra_small', 'finetuned', 't_scratch', 't_transfer'],
+                       choices=['large', 'medium', 'small', 'extra_small', 'finetuned', 't_scratch', 't_transfer', 't_nano'],
                        help='模型类型')
     parser.add_argument('--model_path', help='自定义模型路径')
     parser.add_argument('--conf', type=float, default=0.25, help='置信度阈值')
     parser.add_argument('--save', action='store_true', help='保存标注图片')
     parser.add_argument('--output', help='输出目录')
-    parser.add_argument('--max_size', type=int, default=1024, 
+    parser.add_argument('--max_size', type=int, default=1024,
                        help='自动切片阈值（像素），默认1024')
-    
+    parser.add_argument('--compare', action='store_true',
+                       help='对比模式：用 medium(原始) 和 finetuned(微调后) 两个模型分别预测并生成两张对比图')
+    parser.add_argument('--batch', help='批量模式：传文件夹路径，对文件夹内所有图片进行预测')
+
     args = parser.parse_args()
-    
+
+    # --compare 对比模式
+    if args.compare:
+        if not args.img:
+            print("错误: --compare 模式需要指定图片路径")
+            parser.print_help()
+            exit(1)
+        import shutil as _shutil
+        out_dir = args.output or 'compare_before_after'
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # 用 medium 模型
+        r1 = predict(args.img, model_type='medium', save_output=True, output_dir=out_dir,
+                     max_size_threshold=args.max_size, conf_threshold=args.conf)
+        if r1.get('output_path') and os.path.exists(r1['output_path']):
+            dst1 = os.path.join(base_dir, out_dir, 'origin_median_for_finetune.jpg')
+            _shutil.copy2(r1['output_path'], dst1)
+            print(f"\n[原图] medium 模型: {dst1}")
+            print(f"  目标数: {r1['total_detections']}, 置信度: {r1['avg_confidence']:.4f}")
+            print(f"  类别: {r1['class_counts']}")
+
+        # 用 finetuned 模型
+        r2 = predict(args.img, model_type='finetuned', save_output=True, output_dir=out_dir,
+                     max_size_threshold=args.max_size, conf_threshold=args.conf)
+        if r2.get('output_path') and os.path.exists(r2['output_path']):
+            dst2 = os.path.join(base_dir, out_dir, 'finetuned_median_for_finetune.jpg')
+            _shutil.copy2(r2['output_path'], dst2)
+            print(f"\n[微调] finetuned 模型: {dst2}")
+            print(f"  目标数: {r2['total_detections']}, 置信度: {r2['avg_confidence']:.4f}")
+            print(f"  类别: {r2['class_counts']}")
+        print("\n对比图生成完成!")
+        exit(0)
+
+    # --batch 批量模式
+    if args.batch:
+        img_dir = args.batch
+        exts = {'.png', '.jpg', '.jpeg', '.tif', '.tiff', '.bmp', '.webp'}
+        imgs = sorted([os.path.join(img_dir, f) for f in os.listdir(img_dir)
+                        if Path(f).suffix.lower() in exts])
+        if not imgs:
+            print(f"错误: 目录 {img_dir} 中没有找到支持的图片")
+            exit(1)
+        print(f"批量模式: 找到 {len(imgs)} 张图片")
+        out_dir = args.output or 'predict_batch_output'
+        predictor = TobaccoPredictor(model_type=args.model_type, model_path=args.model_path,
+                                      conf_threshold=args.conf, max_size_threshold=args.max_size)
+        results = predictor.predict_batch(imgs, save_output=True, output_dir=out_dir)
+        success = sum(1 for r in results if r['success'])
+        print(f"\n批量预测完成: {success}/{len(results)} 张成功")
+        for r in results:
+            status = "✓" if r['success'] else "✗"
+            print(f"  {status} {r['image_path']} -> {r['total_detections']} 目标")
+        exit(0)
+
+    # 单张模式（默认）
+    if not args.img:
+        parser.print_help()
+        print("\n提示: 使用 --compare 生成对比图，使用 --batch <目录> 批量预测")
+        exit(1)
+
     result = predict(
         img_path=args.img,
         model_type=args.model_type,
@@ -489,7 +553,7 @@ if __name__ == '__main__':
         output_dir=args.output,
         max_size_threshold=args.max_size
     )
-    
+
     if result['success']:
         print(f"\n{'='*50}")
         print(f"检测成功!")

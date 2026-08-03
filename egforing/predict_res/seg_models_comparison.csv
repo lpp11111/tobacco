@@ -1,3 +1,0 @@
-﻿模型,类型,Box_Precision,Box_Recall,Box_mAP50,Mask_Precision,Mask_Recall,Mask_mAP50,Mask_mAP50-95
-small,seg,0,0,0,0,0,0,0
-large,seg,0,0,0,0,0,0,0

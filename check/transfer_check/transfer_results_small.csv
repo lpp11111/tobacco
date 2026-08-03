@@ -1,2 +1,2 @@
-﻿模型,类型,Box_Precision,Box_Recall,Box_mAP50,Box_mAP50-95,Mask_Precision,Mask_Recall,Mask_mAP50,Mask_mAP50-95
-small,seg,0,0,0,0,0,0,0,0
+﻿模型,图片数,真实标注,预测标注,TP,FP,FN,精确率,召回率,F1值
+small,11,309,9,6,3,303,0.6666666666666666,0.019417475728155338,0.03773584905660377

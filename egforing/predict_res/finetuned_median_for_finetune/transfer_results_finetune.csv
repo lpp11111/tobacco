@@ -1,2 +1,0 @@
-﻿模型,类型,Box_Precision,Box_Recall,Box_mAP50,Box_mAP50-95,Mask_Precision,Mask_Recall,Mask_mAP50,Mask_mAP50-95
-finetune,det,0.9016433316793964,0.7738449365558142,0.8258251949180673,0.5762627899722554,0,0,0,0

@@ -200,6 +200,18 @@ def main():
             'type': 'det',
             'mapping': {0: 0, 1: 1, 2: -1},
         },
+        't_nano': {
+            'path': os.path.join(models_dir, 'best_t_nano.pt'),
+            'classes': ['grow_tobacco', 'disease_tobacco', 'others'],
+            'type': 'det',
+            'mapping': {0: 0, 1: 1, 2: 2},
+        },
+        't_m': {
+            'path': os.path.join(models_dir, 'best_t_m.pt'),
+            'classes': ['grow_tobacco', 'disease_tobacco', 'others'],
+            'type': 'det',
+            'mapping': {0: 0, 1: 1, 2: 2},
+        },
     }
     
     all_results = []

@@ -76,7 +76,7 @@ def main():
     t_classes = ["grow tobacco", "disease tobacco", "others"]
     t_nc = 3
     
-    split_map = {'val': 'valid'}
+    split_map = {'valid': 'val'}
     split = split_map.get(args.split, args.split)
     
     image_dir = os.path.join(t_dataset_path, split, 'images')

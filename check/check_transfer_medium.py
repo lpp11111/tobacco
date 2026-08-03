@@ -81,7 +81,7 @@ def main():
     
     class_mapping = {0: 0, 1: 1}
     
-    split_map = {'val': 'valid'}
+    split_map = {'valid': 'val'}
     split = split_map.get(args.split, args.split)
     
     image_dir = os.path.join(t_dataset_path, split, 'images')

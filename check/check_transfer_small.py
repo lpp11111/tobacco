@@ -81,14 +81,14 @@ def main():
     
     class_mapping = {0: 1, 1: 0, 2: 1, 3: 1}
     
-    split_map = {'val': 'valid'}
+    split_map = {'valid': 'val'}
     split = split_map.get(args.split, args.split)
     
     image_dir = os.path.join(t_dataset_path, split, 'images')
     label_dir = os.path.join(t_dataset_path, split, 'labels')
     
     print(f"\n{'='*70}")
-    print(f"迁移能力检查 - small模型 -> t数据集")
+    print(f"迁移能力检查 - small模型(4类) -> t数据集")
     print(f"数据集分割: {split}, IoU阈值: {args.iou_threshold}, 置信度阈值: {args.conf_threshold}")
     print(f"{'='*70}")
     
